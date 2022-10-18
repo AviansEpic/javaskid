@@ -6,4 +6,4 @@ Whatever the cause is, JavaSkid, a lightweight Javascript obfuscator has got you
 
 It has a fake constant adder, XOR encryption, and much more!
 
-Now you dont have to worry about devious little creatures getting into mischief!
+Now you don't have to worry about devious little creatures getting into mischief!
