@@ -1,0 +1,8 @@
+log
+open
+localStorage
+cookies
+console
+window
+this
+javaskid
