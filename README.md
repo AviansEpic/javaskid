@@ -20,3 +20,6 @@ Copy and paste your JavaScript code into input.js
 Open run.bat
 
 Obfuscated code will be in output.js
+
+
+<h3 align="center">Always open to suggestions / pull requests!</h3>
