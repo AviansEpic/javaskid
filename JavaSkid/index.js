@@ -60,10 +60,10 @@ const encStartTime = performance.now()
 
 for (let i = 0; i<constants.length; i++) {
 	obf += `"${constants[i].xorEncrypt(xorKey).toUnicode()}",`;
-	src = src.replaceAll(`"${constants[i]}"`, `${xorEncryptVar}(${constantVarName}[${generationModule.equate(i)}],${generationModule.equate(i)})`)
-   	src = src.replaceAll(`'${constants[i]}'`, `${xorEncryptVar}(${constantVarName}[${generationModule.equate(i)}],${generationModule.equate(i)})`)
-	src = src.replaceAll(`.${constants[i]}`, `[${xorEncryptVar}(${constantVarName}[${generationModule.equate(i)}],${generationModule.equate(i)})]`)
-    src = src.replaceAll(`[${constants[i]}]`, `[${xorEncryptVar}(${constantVarName}[${generationModule.equate(i)}],${generationModule.equate(i)})]`)
+	src = src.replaceAll(`"${constants[i]}"`, `${xorEncryptVar}(${constantVarName}[${generationModule.equate(i)}],${generationModule.equate(xorKey)})`)
+   	src = src.replaceAll(`'${constants[i]}'`, `${xorEncryptVar}(${constantVarName}[${generationModule.equate(i)}],${generationModule.equate(xorKey)})`)
+	src = src.replaceAll(`.${constants[i]}`, `[${xorEncryptVar}(${constantVarName}[${generationModule.equate(i)}],${generationModule.equate(xorKey)})]`)
+	src = src.replaceAll(`[${constants[i]}]`, `[${xorEncryptVar}(${constantVarName}[${generationModule.equate(i)}],${generationModule.equate(xorKey)})]`)
 
 	constants[i] = constants[i].xorEncrypt(xorKey).toUnicode()
 }
