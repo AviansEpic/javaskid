@@ -1,5 +1,7 @@
 <h1 align="center">JavaSkid</h1>
 
+![Logo](https://media.discordapp.net/attachments/1030983436766289932/1032129476798197770/New_Project_5.png?width=953&height=488)
+
 Is your source code very private?
 
 Maybe, you might be doing some devious activities!
