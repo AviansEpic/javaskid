@@ -21,7 +21,7 @@ let xorKey = Math.floor(Math.random()*200)
 
 let obf = `//Obfuscated by JavaSkid!
 
-var protected_by_javaskid=((${stringVar},${keyVar})=>{var ${resultVar}="";for(var ${forArgVar}=${generationModule.equate(0)};${forArgVar}<${stringVar}.length;${forArgVar}++){${resultVar}+=String.fromCharCode(${stringVar}[${forArgVar}].charCodeAt(${generationModule.equate(0)})^${keyVar})}return ${resultVar}}),Made_By_Avian=true,javaskidbest=(()=>{var ${xorEncryptVar}=protected_by_javaskid;${generationModule.junk(30)}var ${constantVarName}=[`
+var protected_by_javaskid=((${stringVar},${keyVar})=>{var ${resultVar}="";for(var ${forArgVar}=${generationModule.equate(0)};${forArgVar}<${stringVar}.length;${forArgVar}++){${resultVar}+=String.fromCharCode(${stringVar}[${forArgVar}].charCodeAt(${generationModule.equate(0)})^${keyVar})}return ${resultVar}}),Made_By_Avian=true,javaskidbest=(()=>{var ${xorEncryptVar}=protected_by_javaskid;${generationModule.junk(30)}var ${constantVarName}={`
 
 
 let src = fs.readFileSync('.\\temp\\minified.js',{encoding:'utf8',flag:'r'}).trim();
@@ -52,11 +52,14 @@ String.prototype.xorEncrypt = function(key){
 const encStartTime = performance.now()
 
 for (let i = 0; i<constants.length; i++) {
-	obf += `"${constants[i].xorEncrypt(xorKey).toUnicode()}",`;
-	src = src.replaceAll(`"${constants[i]}"`, `${xorEncryptVar}(${constantVarName}[${generationModule.equate(i)}],${generationModule.equate(xorKey)})`)
-   	src = src.replaceAll(`'${constants[i]}'`, `${xorEncryptVar}(${constantVarName}[${generationModule.equate(i)}],${generationModule.equate(xorKey)})`)
-    src = src.replaceAll(`.${constants[i]}`, `[${xorEncryptVar}(${constantVarName}[${generationModule.equate(i)}],${generationModule.equate(xorKey)})]`)
-    src = src.replaceAll(`[${constants[i]}]`, `[${xorEncryptVar}(${constantVarName}[${generationModule.equate(i)}],${generationModule.equate(xorKey)})]`)
+    let index = generationModule.makeid(30)
+
+	obf += `"${index}":"${constants[i].xorEncrypt(xorKey).toUnicode()}"+("${generationModule.makeid(20)}").substr(${generationModule.equate(0)},${generationModule.equate(0)}),`;
+	src = src.replaceAll(`"${constants[i]}"`, `${xorEncryptVar}(${constantVarName}[${index}],${generationModule.equate(xorKey)})`)
+   	src = src.replaceAll(`'${constants[i]}'`, `${xorEncryptVar}(${constantVarName}[${index}],${generationModule.equate(xorKey)})`)
+   	src = src.replaceAll(`?.${constants[i]}`, `?.[${xorEncryptVar}(${constantVarName}[${index}],${generationModule.equate(xorKey)})]`)
+   	src = src.replaceAll(`.${constants[i]}`, `[${xorEncryptVar}(${constantVarName}[${index}],${generationModule.equate(xorKey)})]`)
+   	src = src.replaceAll(`[${constants[i]}]`, `[${xorEncryptVar}(${constantVarName}[${index}],${generationModule.equate(xorKey)})]`)
 
 	constants[i] = constants[i].xorEncrypt(xorKey).toUnicode()
 }
@@ -65,7 +68,7 @@ const encEndTime = performance.now()
 
 console.log(`Constant encryption completed in ${(encEndTime  - encStartTime).toFixed(3)} milliseconds!`)
 
-obf = obf.slice(0,-1) + "];" + src + generationModule.junk(50) + "})('protected by javaskid');"
+obf = obf.slice(0,-1) + "};" + src + generationModule.junk(100).substr(-1) + "})('protected by javaskid');"
 
 fs.writeFileSync("output.js",obf)
 
@@ -73,4 +76,3 @@ const obfEndTime = performance.now()
 
 
 console.log(`Obfuscated in ${(obfEndTime-obfStartTime).toFixed(3)} milliseconds!`)
-
