@@ -3,8 +3,13 @@ const generationModule = require("./Obfuscation/Generation")
 
 const fs = require('fs')
 
+const config = JSON.parse(fs.readFileSync("config.json"))
+
+
 const { execSync } = require('child_process')
 const { performance } = require('perf_hooks')
+
+
 
 const obfStartTime = performance.now()
 
@@ -19,9 +24,9 @@ let xorEncryptVar = generationModule.randomName();
 
 let xorKey = Math.floor(Math.random()*200)
 
-let obf = `//Obfuscated by JavaSkid!
+let obf = `//${config["watermarks"]["watermark_comment"]}
 
-var protected_by_javaskid=((${stringVar},${keyVar})=>{var ${resultVar}="";for(var ${forArgVar}=${generationModule.equate(0)};${forArgVar}<${stringVar}.length;${forArgVar}++){${resultVar}+=String.fromCharCode(${stringVar}[${forArgVar}].charCodeAt(${generationModule.equate(0)})^${keyVar})}return ${resultVar}}),Made_By_Avian=true,javaskidbest=(()=>{var ${xorEncryptVar}=protected_by_javaskid;${generationModule.junk(30)}var ${constantVarName}={`
+var ${config["watermarks"]["watermark_function_name"]}=((${stringVar},${keyVar})=>{var ${resultVar}="";for(var ${forArgVar}=${generationModule.equate(0)};${forArgVar}<${stringVar}.length;${forArgVar}++){${resultVar}+=String.fromCharCode(${stringVar}[${forArgVar}].charCodeAt(${generationModule.equate(0)})^${keyVar})}return ${resultVar}}),Made_By_Avian=true,javaskidbest=(()=>{var ${xorEncryptVar}=protected_by_javaskid;${generationModule.junk(30)}var ${constantVarName}={`
 
 
 let src = fs.readFileSync('.\\temp\\minified.js',{encoding:'utf8',flag:'r'}).trim();
@@ -55,6 +60,7 @@ for (let i = 0; i<constants.length; i++) {
     let index = generationModule.makeid(30)
 
 	obf += `"${index}":"${constants[i].xorEncrypt(xorKey).toUnicode()}"+("${generationModule.makeid(20)}").substr(${generationModule.equate(0)},${generationModule.equate(0)}),`;
+	index = '"' + index + '"'
 	src = src.replaceAll(`"${constants[i]}"`, `${xorEncryptVar}(${constantVarName}[${index}],${generationModule.equate(xorKey)})`)
    	src = src.replaceAll(`'${constants[i]}'`, `${xorEncryptVar}(${constantVarName}[${index}],${generationModule.equate(xorKey)})`)
    	src = src.replaceAll(`?.${constants[i]}`, `?.[${xorEncryptVar}(${constantVarName}[${index}],${generationModule.equate(xorKey)})]`)
@@ -68,7 +74,9 @@ const encEndTime = performance.now()
 
 console.log(`Constant encryption completed in ${(encEndTime  - encStartTime).toFixed(3)} milliseconds!`)
 
-obf = obf.slice(0,-1) + "};" + src + generationModule.junk(100).substr(-1) + "})('protected by javaskid');"
+obf = obf.slice(0,-1) + "};" + src + generationModule.junk(100).substr(-1) + `})('${config["watermarks"]["watermark_last_string"]}');`
+
+obf = obf.replaceAll(";;", ";")
 
 fs.writeFileSync("output.js",obf)
 
