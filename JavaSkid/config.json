@@ -1,0 +1,9 @@
+{
+    "custom_alphabet": "㒚㒛㒜㒝㒞㒟㒠㒡",
+    "watermarks": {
+        "watermark_variable": "JAVASKID",
+        "watermark_comment": "Obfuscated by JavaSkid!",
+        "watermark_function_name": "protected_by_javaskid",
+	    "watermark_last_string": "protected by javaskid"
+    }
+}
